@@ -1,9 +1,18 @@
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import SplashScreen from '../../app/(tabs)/index';
+import Calculator from '../../app/calculadora/calculadora';
 
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { type IconProps } from '@expo/vector-icons/build/createIconSet';
-import { type ComponentProps } from 'react';
+const Stack = createStackNavigator();
 
-export function TabBarIcon({ style, ...rest }: IconProps<ComponentProps<typeof Ionicons>['name']>) {
-  return <Ionicons size={28} style={[{ marginBottom: -3 }, style]} {...rest} />;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="SplashScreen" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        <Stack.Screen name="Calculator" component={Calculator} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

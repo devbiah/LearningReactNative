@@ -1,85 +1,49 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; 
+import { LinearGradient } from 'expo-linear-gradient';
 
-const App = () => {
-  const [number1, setNumber1, number2, setNumber2] = useState('');
-  const [resultado, setResultado] = useState('');
+const SplashScreen = () => {
+  const navigation = useNavigation();
 
-  const soma = () => {
-    setResultado(Number(number1) + (number2));
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('Calculator');
+    }, 5000);
 
-  const subtracao = () => {
-    setResultado(Number(number) - 5);
-  };
-
-  const multiplicacao = () => {
-    setResultado(Number(number) * 5);
-  };
-
-  const divisao = () => {
-    setResultado(Number(number) / 5);
-  };
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>CALCULADORA</Text>
-      
-      <TextInput   
-        style={styles.input}
-        onChangeText={setNumber1} 
-        value={number1}
-        placeholder='Insira um número'
-        keyboardType='numeric'
+    <LinearGradient 
+      colors={['#4c669f', '#fff']}
+      style={styles.container}
+    >
+      <Image 
+        source={require('../../img/blohsh.png')}
+        style={styles.image}
       />
-      <TextInput   
-        style={styles.input}
-        onChangeText={setNumber2} 
-        value={number2}
-        placeholder='Insira um número'
-        keyboardType='numeric'
-      />
-
-      <View style={styles.buttonContainer}>
-        <Button title='+' onPress={soma} />
-        <Button title='-' onPress={subtracao} />
-        <Button title='x' onPress={multiplicacao} />
-        <Button title=':' onPress={divisao} />
-      </View>
-
-      <Text style={styles.result}>O valor é {resultado}</Text>
-    </View>
+      <Text style={styles.text}>Welcome to My Calculator</Text>
+    </LinearGradient>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  image: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
   },
-  input: {
-    width: '200px',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100px',
-    marginBottom: 20,
-  },
-  result: {
-    fontSize: 18,
+  text: {
+    marginTop: 20,
+    fontSize: 20,
+    color: '#fff',
   },
 });
 
-export default App;
+export default SplashScreen;
