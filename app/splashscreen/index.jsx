@@ -1,19 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; 
 import { LinearGradient } from 'expo-linear-gradient';
 
 const SplashScreen = () => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace('Calculator');
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [navigation]);
-
   return (
     <LinearGradient 
       colors={['#4c669f', '#fff']}

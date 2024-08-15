@@ -1,58 +1,88 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const Calculator = () => {
-  const [number1, setNumber1] = useState('');
-  const [number2, setNumber2] = useState('');
-  const [resultado, setResultado] = useState('');
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
 
-  const soma = () => {
-    setResultado(Number(number1) + Number(number2));
+  const handlePress = (value) => {
+    setInput((prevInput) => prevInput + value);
   };
 
-  const subtracao = () => {
-    setResultado(Number(number1) - Number(number2));
+  const handleClear = () => {
+    setInput('');
+    setResult('');
   };
 
-  const multiplicacao = () => {
-    setResultado(Number(number1) * Number(number2));
-  };
-
-  const divisao = () => {
-    if (Number(number2) !== 0) {
-      setResultado(Number(number1) / Number(number2));
-    } else {
-      setResultado('Erro: Divisão por zero');
+  const calculateResult = () => {
+    try {
+      setResult(eval(input).toString());
+    } catch (error) {
+      setResult('Erro');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CALCULADORA</Text>
+      <Text style={styles.resultText}>{result}</Text>
+      <Text style={styles.inputText}>{input}</Text>
       
-      <TextInput   
-        style={styles.input}
-        onChangeText={setNumber1} 
-        value={number1}
-        placeholder='Insira um número'
-        keyboardType='numeric'
-      />
-      <TextInput   
-        style={styles.input}
-        onChangeText={setNumber2} 
-        value={number2}
-        placeholder='Insira outro número'
-        keyboardType='numeric'
-      />
-
-      <View style={styles.buttonContainer}>
-        <Button title='+' onPress={soma} />
-        <Button title='-' onPress={subtracao} />
-        <Button title='x' onPress={multiplicacao} />
-        <Button title=':' onPress={divisao} />
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('7')}>
+          <Text style={styles.buttonText}>7</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('8')}>
+          <Text style={styles.buttonText}>8</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('9')}>
+          <Text style={styles.buttonText}>9</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => handlePress('*')}>
+          <Text style={styles.buttonText}>×</Text>
+        </TouchableOpacity>
       </View>
 
-      <Text style={styles.result}>O valor é {resultado}</Text>
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('4')}>
+          <Text style={styles.buttonText}>4</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('5')}>
+          <Text style={styles.buttonText}>5</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('6')}>
+          <Text style={styles.buttonText}>6</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => handlePress('-')}>
+          <Text style={styles.buttonText}>−</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.row}>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('1')}>
+          <Text style={styles.buttonText}>1</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('2')}>
+          <Text style={styles.buttonText}>2</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('3')}>
+          <Text style={styles.buttonText}>3</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => handlePress('+')}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.row}>
+        <TouchableOpacity style={[styles.button, styles.clearButton]} onPress={handleClear}>
+          <Text style={styles.buttonText}>C</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlePress('0')}>
+          <Text style={styles.buttonText}>0</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={calculateResult}>
+          <Text style={styles.buttonText}>=</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -60,30 +90,49 @@ const Calculator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#f0f0f0',
     padding: 20,
   },
-  title: {
+  resultText: {
+    fontSize: 32,
+    textAlign: 'right',
+    marginBottom: 10,
+    color: '#333',
+  },
+  inputText: {
     fontSize: 24,
+    textAlign: 'right',
     marginBottom: 20,
+    color: '#666',
   },
-  input: {
-    width: '80%',
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  buttonContainer: {
+  row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
+    justifyContent: 'space-around',
     marginBottom: 20,
   },
-  result: {
-    fontSize: 18,
+  button: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    flex: 1,
+    alignItems: 'center',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  operatorButton: {
+    backgroundColor: '#666'
+  },
+  clearButton: {
+    backgroundColor: '#d4d4d2',
+  },
+  buttonText: {
+    fontSize: 24,
+    color: '#333',
   },
 });
 
