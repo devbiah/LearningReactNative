@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Image } from 'react-native';
 import AccountBalance from './accountBalance/index';
 import TransactionForm from './TransactionForm/index';
 
@@ -26,6 +26,10 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={{ uri: 'https://www.itapevarec.com.br/Nembus/Images/logo-santander-transparent.png' }}
+        style={styles.logo}
+      />
       <AccountBalance balance={balance} />
       <TransactionForm onDeposit={handleDeposit} onWithdrawal={handleWithdrawal} />
     </View>
@@ -35,8 +39,15 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     padding: 16,
+  },
+  logo: {
+    width: 150,
+    height: 50,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
 });
 

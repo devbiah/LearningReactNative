@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const TransactionForm = ({ onDeposit, onWithdrawal }) => {
   const [amount, setAmount] = useState('');
@@ -28,10 +28,15 @@ const TransactionForm = ({ onDeposit, onWithdrawal }) => {
         value={amount}
         onChangeText={setAmount}
         placeholder="Valor"
+        placeholderTextColor="#999"
       />
       <View style={styles.buttonContainer}>
-        <Button title="Depositar" onPress={handleSubmitDeposit} />
-        <Button title="Sacar" onPress={handleSubmitWithdrawal} />
+        <TouchableOpacity onPress={handleSubmitDeposit} style={styles.button}>
+          <Text style={styles.buttonText}>Depositar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSubmitWithdrawal} style={styles.button}>
+          <Text style={styles.buttonText}>Sacar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -43,16 +48,29 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#ccc',
     borderWidth: 1,
     marginBottom: 10,
     width: '80%',
     paddingHorizontal: 10,
+    color: '#333',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '80%',
+  },
+  button: {
+    backgroundColor: '#e60012',
+    borderRadius: 5,
+    padding: 10,
+    marginHorizontal: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#ffffff', 
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

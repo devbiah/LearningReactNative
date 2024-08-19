@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#333',
   },
   balance: {
     fontSize: 24,
-    color: 'green',
+    color: '#333',
   },
 });
 
