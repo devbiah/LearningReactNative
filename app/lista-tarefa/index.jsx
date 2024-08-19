@@ -36,7 +36,7 @@ const TaskItem = ({ task, onPress }) => (
 
 export default function ListaTarefa() {
     const [tasks, setTasks] = useState([
-        { id: "1", name: "Jogar Valorant", completed: false },
+        { id: "1", name: "Jogar Valorant", completed: false, created_at:20/4/2005},
         { id: "2", name: "Ser gay", completed: true },
         { id: "3", name: "Jogar de novo", completed: false },
     ]);
