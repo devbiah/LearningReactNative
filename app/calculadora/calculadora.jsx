@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 
 const Calculator = () => {
   const [input, setInput] = useState('');
@@ -28,60 +28,60 @@ const Calculator = () => {
       <Text style={styles.inputText}>{input}</Text>
       
       <View style={styles.row}>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('7')}>
+        <Pressable style={styles.button} onPress={() => handlePress('7')}>
           <Text style={styles.buttonText}>7</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('8')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('8')}>
           <Text style={styles.buttonText}>8</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('9')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('9')}>
           <Text style={styles.buttonText}>9</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => handlePress('*')}>
+        </Pressable>
+        <Pressable style={[styles.button, styles.operatorButton]} onPress={() => handlePress('*')}>
           <Text style={styles.buttonText}>×</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <View style={styles.row}>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('4')}>
+        <Pressable style={styles.button} onPress={() => handlePress('4')}>
           <Text style={styles.buttonText}>4</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('5')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('5')}>
           <Text style={styles.buttonText}>5</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('6')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('6')}>
           <Text style={styles.buttonText}>6</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => handlePress('-')}>
+        </Pressable>
+        <Pressable style={[styles.button, styles.operatorButton]} onPress={() => handlePress('-')}>
           <Text style={styles.buttonText}>−</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <View style={styles.row}>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('1')}>
+        <Pressable style={styles.button} onPress={() => handlePress('1')}>
           <Text style={styles.buttonText}>1</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('2')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('2')}>
           <Text style={styles.buttonText}>2</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('3')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('3')}>
           <Text style={styles.buttonText}>3</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => handlePress('+')}>
+        </Pressable>
+        <Pressable style={[styles.button, styles.operatorButton]} onPress={() => handlePress('+')}>
           <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       <View style={styles.row}>
-        <TouchableOpacity style={[styles.button, styles.clearButton]} onPress={handleClear}>
+        <Pressable style={[styles.button, styles.clearButton]} onPress={handleClear}>
           <Text style={styles.buttonText}>C</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handlePress('0')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => handlePress('0')}>
           <Text style={styles.buttonText}>0</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={calculateResult}>
+        </Pressable>
+        <Pressable style={[styles.button, styles.operatorButton]} onPress={calculateResult}>
           <Text style={styles.buttonText}>=</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -118,10 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     marginHorizontal: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
+    boxShadow: '0px 2px 3px rgba(0, 0, 0, 0.3)', // Substitui shadow*
     elevation: 3,
   },
   operatorButton: {
