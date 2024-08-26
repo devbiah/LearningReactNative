@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Pressable, Text, StyleSheet, Modal } from 'react-native';
 
-const TransactionForm = ({ onDeposit, onWithdrawal }) => {
+const TransactionForm = ({ onDeposit, onWithdrawal, balance }) => {
   const [amount, setAmount] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [transactionType, setTransactionType] = useState('');
+  const [finalBalance, setFinalBalance] = useState(balance);
 
-  const handleSubmitDeposit = () => {
+  const handleTransaction = (type) => {
     const value = parseFloat(amount);
-    if (!isNaN(value) && value > 0) {
-      onDeposit(value);
-      setAmount('');
+    if (isNaN(value) || value <= 0) return;
+
+    setTransactionType(type);
+    if (type === 'deposit') {
+      const bonus = value * 0.01;
+      setFinalBalance(balance + value + bonus);
+    } else if (type === 'withdrawal' && value <= balance) {
+      const newBalance = balance - value;
+      const fine = newBalance * 0.025;
+      setFinalBalance(newBalance - fine);
     }
+    setShowModal(true);
   };
 
-  const handleSubmitWithdrawal = () => {
-    const value = parseFloat(amount);
-    if (!isNaN(value) && value > 0) {
-      onWithdrawal(value);
-      setAmount('');
+  const confirmTransaction = () => {
+    if (transactionType === 'deposit') {
+      onDeposit(parseFloat(amount));
+    } else if (transactionType === 'withdrawal') {
+      onWithdrawal(parseFloat(amount));
     }
+    setShowModal(false);
+    setAmount('');
   };
 
   return (
@@ -31,13 +44,33 @@ const TransactionForm = ({ onDeposit, onWithdrawal }) => {
         placeholderTextColor="#999"
       />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleSubmitDeposit} style={styles.button}>
+        <Pressable onPress={() => handleTransaction('deposit')} style={styles.button}>
           <Text style={styles.buttonText}>Depositar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubmitWithdrawal} style={styles.button}>
+        </Pressable>
+        <Pressable onPress={() => handleTransaction('withdrawal')} style={styles.button}>
           <Text style={styles.buttonText}>Sacar</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
+
+      <Modal
+        visible={showModal}
+        transparent
+        animationType="slide"
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Pressable onPress={() => setShowModal(false)} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>X</Text>
+            </Pressable>
+            <Text style={styles.modalText}>Deseja finalizar essa operação?</Text>
+            <Text style={styles.modalText}>Saldo Atual: R$ {balance.toFixed(2)}</Text>
+            <Text style={styles.modalText}>Saldo Final: R$ {finalBalance.toFixed(2)}</Text>
+            <Pressable onPress={confirmTransaction} style={styles.confirmButton}>
+              <Text style={styles.confirmButtonText}>Confirmar Transação</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -68,9 +101,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    color: '#ffffff', 
+    color: '#ffffff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: 300,
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  closeButton: {
+    alignSelf: 'flex-end',
+  },
+  closeButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#e60012',
+  },
+  modalText: {
+    fontSize: 16,
+    marginVertical: 10,
+  },
+  confirmButton: {
+    backgroundColor: '#e60012',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 15,
+  },
+  confirmButtonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

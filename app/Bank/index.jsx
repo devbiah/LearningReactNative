@@ -12,7 +12,7 @@ const App = () => {
       return;
     }
     const bonus = amount * 0.01;
-    setBalance(prevBalance => prevBalance + amount + bonus);
+    setBalance((prevBalance) => prevBalance + amount + bonus);
   };
 
   const handleWithdrawal = (amount) => {
@@ -20,8 +20,9 @@ const App = () => {
       Alert.alert('Erro', 'O valor do saque deve ser positivo e não pode exceder o saldo.');
       return;
     }
-    const fine = (balance - amount) * 0.025;
-    setBalance(prevBalance => prevBalance - amount - fine);
+    const newBalance = balance - amount;
+    const fine = newBalance * 0.025;
+    setBalance(newBalance - fine);
   };
 
   return (
@@ -31,7 +32,11 @@ const App = () => {
         style={styles.logo}
       />
       <AccountBalance balance={balance} />
-      <TransactionForm onDeposit={handleDeposit} onWithdrawal={handleWithdrawal} />
+      <TransactionForm
+        onDeposit={handleDeposit}
+        onWithdrawal={handleWithdrawal}
+        balance={balance} 
+      />
     </View>
   );
 };
