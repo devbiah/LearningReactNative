@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [nome, setNome] = useState('');
     const [senha, setSenha] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
 
     const registrarUsuario = async () => {
         if (!nome || !email || !senha) {
-            console.log('Os parâmetros nome, email e senha devem ser fornecidos');
+            setModalMessage('Os parâmetros nome, email e senha devem ser fornecidos');
+            setModalVisible(true);
             return;
         }
 
@@ -24,25 +27,25 @@ const SignUp = () => {
             });
 
             if (resposta.ok) {
-                console.log('Usuário criado com sucesso');
+                setModalMessage('Usuário criado com sucesso');
             } else {
                 const errorData = await resposta.json();
                 if (resposta.status === 409) {
-                    console.log('Conflito: ', errorData.message || 'Email já cadastrado');
+                    setModalMessage('Conflito: ' + (errorData.message || 'Email já cadastrado'));
                 } else {
-                    console.log('Ocorreu um erro: ', errorData.message || 'Erro desconhecido');
+                    setModalMessage('Ocorreu um erro: ' + (errorData.message || 'Erro desconhecido'));
                 }
             }
         } catch (error) {
-            console.log('Erro de rede: ', error);
+            setModalMessage('Erro de rede: ' + error.message);
+        } finally {
+            setModalVisible(true);
         }
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <View>
-                <Text style={styles.title}>Registre-se</Text>
-            </View>
+            <Text style={styles.title}>Registre-se</Text>
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
@@ -68,6 +71,25 @@ const SignUp = () => {
                     <Text style={styles.buttonText}>Cadastrar</Text>
                 </Pressable>
             </View>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalText}>{modalMessage}</Text>
+                        <Pressable
+                            style={styles.modalButton}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.modalButtonText}>Fechar</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 };
@@ -78,29 +100,27 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        backgroundColor: '#7F2026',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        color: '#fff',
+        marginBottom: 10,
     },
     inputContainer: {
-        flex: 1,
         width: '100%',
-        justifyContent: 'center',
         alignItems: 'center',
     },
     input: {
-        flexGrow: 0,
-        flexShrink: 0,
-        flexBasis: 50, 
         padding: 10,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#fff',
         borderRadius: 5,
         marginBottom: 15,
+        color: '#fff',
         alignSelf: 'stretch',
-        marginHorizontal: 20,  
+        marginHorizontal: 20,
     },
     button: {
         flexGrow: 0,
@@ -114,6 +134,33 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,  
     },
     buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    modalText: {
+        fontSize: 16,
+        marginBottom: 20,
+    },
+    modalButton: {
+        backgroundColor: '#000000',
+        borderRadius: 5,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalButtonText: {
         color: '#fff',
         fontWeight: 'bold',
     },

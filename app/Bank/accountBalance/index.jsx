@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const AccountBalance = ({ balance }) => {
+const AccountBalance = ({ balance = 0 }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Saldo Atual:</Text>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Pressable, Text, StyleSheet, Modal } from 'react-native';
 
-const TransactionForm = ({ onDeposit, onWithdrawal, balance }) => {
+const TransactionForm = ({ onDeposit, onWithdrawal, balance = 0 }) => {
   const [amount, setAmount] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [transactionType, setTransactionType] = useState('');
