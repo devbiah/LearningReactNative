@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, Image } from 'react-native';
-import AccountBalance from './accountBalance/index';
+import AccountBalance from './AccountBalance/index';
 import TransactionForm from './TransactionForm/index';
 
 const App = () => {
