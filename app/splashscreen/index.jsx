@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router'
 
 const SplashScreen = () => {
   return (
-    <LinearGradient 
+    <LinearGradient
       colors={['#4c669f', '#fff']}
       style={styles.container}
     >
-      <Image 
-        source={require('../../img/blohsh.png')}
-        style={styles.image}
-      />
-      <Text style={styles.text}>Welcome to My Calculator</Text>
+      <Link href="/LandingPage">
+        <Image
+          source={require('../../img/senai.png')}
+          style={styles.image}
+        />
+      </Link>
+
     </LinearGradient>
   );
 }
@@ -24,9 +27,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
+    width:170,
+    height:115,
   },
   text: {
     marginTop: 20,
