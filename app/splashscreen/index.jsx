@@ -9,7 +9,7 @@ const SplashScreen = () => {
       colors={['#4c669f', '#fff']}
       style={styles.container}
     >
-      <Link href="/LandingPage">
+      <Link href="/AboutMe">
         <Image
           source={require('../../img/senai.png')}
           style={styles.image}
