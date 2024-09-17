@@ -1,8 +1,10 @@
 import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import HeaderB from '../../components/HeaderWback';
 
 export default function Travels() {
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <HeaderB/>
             <Text style={styles.title}>
                 Minhas viagens:
             </Text>
@@ -52,6 +54,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
+        marginTop:40,
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,

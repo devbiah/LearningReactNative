@@ -1,9 +1,11 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'; 
 import { Link } from 'expo-router';
+import Header from '../../components/Header';
 
 export default function Home() {
   return (
     <View style={styles.container}>
+      <Header /> 
       <Image source={require('../../img/eu.jpeg')} style={styles.profileImage} />
       <Text style={styles.title}>Bem-vindo(a) ao meu app</Text>
       <Text style={styles.description}>

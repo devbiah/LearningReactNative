@@ -1,8 +1,10 @@
 import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import HeaderB from '../../components/HeaderWback';
 
 export default function Games() {
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <HeaderB/>
             <Text style={styles.title}>
                 Meu top 5 melhores jogos:
             </Text>
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
+        marginTop:40,
         marginBottom: 20,
         textAlign: 'center',
     },
