@@ -1,84 +1,71 @@
-import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
-import HeaderB from '../../components/HeaderWback';
+import React from 'react'; 
+import { View, Text, Image, FlatList, StyleSheet, Pressable } from 'react-native';
+import Header from '../../components/HeaderWback';
+import { useRouter } from 'expo-router';
 
-export default function Travels() {
+const viagens = [
+    { id: '1', title: 'Urubici', year: 2024, image: require('../../img/urubici.jpg') },
+    { id: '2', title: 'Gramado', year: 2023, image: require('../../img/gramado.jpg') },
+    { id: '3', title: 'Curitiba', year: 2023, image: require('../../img/curitiba.jpg') },
+    { id: '4', title: 'Ceará', year: 2023, image: require('../../img/canoaquebrada.jpg') },
+    { id: '5', title: 'Pernambuco', year: 2020, image: require('../../img/pernambuco.jpg') },
+    { id: '6', title: 'Natal', year: 2018, image: require('../../img/natal.jpg') },
+];
+
+const TelaViagens = () => {
+    const router = useRouter();
+
+    const navigateToDetails = (id) => {
+        router.push(`/details/${id}`);
+    };
+
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <HeaderB/>
-            <Text style={styles.title}>
-                Minhas viagens:
-            </Text>
-
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>Urubici 2024</Text>
-                <Image source={require('../../img/urubici.jpg')} style={styles.image} />
-                <View style={styles.separator} />
-            </View>
-
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>Gramado 2023</Text>
-                <Image source={require('../../img/gramado.jpg')} style={styles.image} />
-                <View style={styles.separator} />
-            </View>
-
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>Ceará 2022</Text>
-                <Image source={require('../../img/canoaquebrada.jpg')} style={styles.image} />
-                <View style={styles.separator} />
-            </View>
-
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>Curitiba 2022</Text>
-                <Image source={require('../../img/curitiba.jpg')} style={styles.image} />
-                <View style={styles.separator} />
-            </View>
-
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>Natal 2018</Text>
-                <Image source={require('../../img/natal.jpg')} style={styles.image} />
-                <View style={styles.separator} />
-            </View>
-
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>Pernambuco 2016</Text>
-                <Image source={require('../../img/pernambuco.jpg')} style={styles.image} />
-                <View style={styles.separator} />
-            </View>
-        </ScrollView>
+        <View style={styles.container}>
+            <Header title="<- Viagens" voltarPara="/sobre-mim" />
+            <Text style={styles.text1}>Minhas Viagens:</Text>
+            <FlatList
+                data={viagens}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <Pressable onPress={() => navigateToDetails(item.id)} style={styles.card}>
+                        <Image source={item.image} style={styles.image} />
+                        <Text style={styles.title}>{item.title} - {item.year}</Text>
+                    </Pressable>
+                )}
+            />
+        </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
-        alignItems: 'center',
+        flex: 1,
     },
-    title: {
-        marginTop:40,
-        fontSize: 24,
+    text1: {
+        fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20,
-        textAlign: 'center',
+        marginTop: 70,
+        marginBottom: 1,
+        alignSelf: 'center',
     },
-    itemContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
-        width: '100%',
-    },
-    itemText: {
-        fontSize: 18,
-        marginBottom: 10,
-        textAlign: 'center',
+    card: {
+        marginTop: 20,
+        margin: 10,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        overflow: 'hidden',
+        elevation: 2,
     },
     image: {
         width: '100%',
-        height: 200,
-        resizeMode: 'cover',
+        height: 150,
     },
-    separator: {
-        marginTop: 10,
-        height: 1,
-        width: '90%',
-        backgroundColor: '#ccc',
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginVertical: 10,
+        marginHorizontal: 10,
     },
 });
+
+export default TelaViagens;
