@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, Image } from 'react-native';
-import AccountBalance from './AccountBalance/index';
-import TransactionForm from './TransactionForm/index';
+import AccountBalance from './accountBalance';
+import TransactionForm from './TransactionForm';
 
 const App = () => {
   const [balance, setBalance] = useState(7320.92);
