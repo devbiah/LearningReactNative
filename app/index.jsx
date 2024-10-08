@@ -5,10 +5,28 @@ import { Link } from 'expo-router';
 const LandingPage = () => {
     return (
         <View style={styles.container}>
+            <Link href="/iFome">
+                <View style={styles.linkContainer}>
+                    <Image
+                        source={require('../img/folder.png')}
+                        style={styles.image}
+                    />
+                    <Text>/iFome</Text>
+                </View>
+            </Link>
+            <Link href="/Camera">
+                <View style={styles.linkContainer}>
+                    <Image
+                        source={require('../img/folder.png')}
+                        style={styles.image}
+                    />
+                    <Text>/Camera</Text>
+                </View>
+                </Link>
             <Link href="/calculadora">
                 <View style={styles.linkContainer}>
                     <Image
-                        source={require('../../img/folder.png')}
+                        source={require('../img/folder.png')}
                         style={styles.image}
                     />
                     <Text>/Calculator</Text>
@@ -17,7 +35,7 @@ const LandingPage = () => {
             <Link href="/Bank">
                 <View style={styles.linkContainer}>
                     <Image
-                        source={require('../../img/folder.png')}
+                        source={require('../img/folder.png')}
                         style={styles.image}
                     />
                     <Text>/Bank</Text>
@@ -26,7 +44,7 @@ const LandingPage = () => {
             <Link href="/lista-tarefa">
                 <View style={styles.linkContainer}>
                     <Image
-                        source={require('../../img/folder.png')}
+                        source={require('../img/folder.png')}
                         style={styles.image}
                     />
                     <Text>/Task-List</Text>
@@ -35,7 +53,7 @@ const LandingPage = () => {
             <Link href="/PrimeiraCalculadora">
                 <View style={styles.linkContainer}>
                     <Image
-                        source={require('../../img/folder.png')}
+                        source={require('../img/folder.png')}
                         style={styles.image}
                     />
                     <Text>/First-Calculator</Text>
@@ -44,22 +62,22 @@ const LandingPage = () => {
             <Link href="/registro">
                 <View style={styles.linkContainer}>
                     <Image
-                        source={require('../../img/folder.png')}
+                        source={require('../img/folder.png')}
                         style={styles.image}
                     />
                     <Text>/Register</Text>
                 </View>
             </Link>
-            
+
             <Link href="/seletor">
                 <View style={styles.linkContainer}>
                     <Image
-                        source={require('../../img/folder.png')}
+                        source={require('../img/folder.png')}
                         style={styles.image}
                     />
                     <Text>/Pokemon</Text>
                 </View>
-                </Link>
+            </Link>
         </View>
     );
 }

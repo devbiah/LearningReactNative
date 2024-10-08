@@ -99,7 +99,8 @@ export default function Camera() {
               <Text style={styles.buttonText}>Discard</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={savePhoto}>
-              <Ionicons name="save" size={24} color="white" />
+              <Ionicons name="save" size={24} color="white" /> 
+              {/* encontrei arquivos de ícones do próprio expo */}
               <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
           </View>
